@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Eye, EyeOff, FolderOpen, AlertCircle, Loader2 } from 'lucide-react';
+import Image from 'next/image';
+import { Eye, EyeOff, AlertCircle, Loader2 } from 'lucide-react';
 import { authService } from '@/lib/auth';
 import { staffService } from '@/lib/staffService';
-import { fileService } from '@/lib/fileService';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -15,14 +15,8 @@ export default function LoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    staffService.getAllUsers();
-    fileService.getAllFiles();
-
-    if (authService.isAuthenticated()) {
-      router.replace(authService.isAdmin() ? '/admin' : '/dashboard');
-    }
-  }, [router]);
+  // Seed mock data on mount
+  if (typeof window !== 'undefined') staffService.getAllUsers();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,8 +32,6 @@ export default function LoginPage() {
     }
 
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 600));
-
     const result = authService.login({ email: email.trim(), password });
     setLoading(false);
 
@@ -55,10 +47,10 @@ export default function LoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-2xl mb-4 shadow-lg">
-            <FolderOpen className="w-8 h-8 text-white" />
+          <div className="flex justify-center mb-4">
+            <Image src="/iuc-logo.png" alt="Innovative University College" width={180} height={62} className="h-16 w-auto object-contain" priority />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Repository System</h1>
+          <h1 className="text-2xl font-bold text-gray-900">IUC Drive</h1>
           <p className="text-sm text-gray-500 mt-1">Sign in to access your files</p>
         </div>
 

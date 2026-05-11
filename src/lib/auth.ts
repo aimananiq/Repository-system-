@@ -2,6 +2,20 @@ import { AuthUser, LoginCredentials, User } from '@/types/user';
 import { storage, STORAGE_KEYS } from './storage';
 import { staffService } from './staffService';
 
+const AUTH_COOKIE = 'repo_auth';
+const isBrowser = typeof window !== 'undefined';
+
+function setCookie(user: AuthUser) {
+  if (!isBrowser) return;
+  const value = encodeURIComponent(JSON.stringify(user));
+  document.cookie = `${AUTH_COOKIE}=${value}; path=/; SameSite=Lax; max-age=86400`;
+}
+
+function clearCookie() {
+  if (!isBrowser) return;
+  document.cookie = `${AUTH_COOKIE}=; path=/; max-age=0`;
+}
+
 function toAuthUser(user: User): AuthUser {
   return {
     id: user.id,
@@ -24,8 +38,7 @@ class AuthService {
   }
 
   isAdmin(): boolean {
-    const user = this.getCurrentUser();
-    return user?.role === 'admin';
+    return this.getCurrentUser()?.role === 'admin';
   }
 
   login(credentials: LoginCredentials): { success: boolean; error?: string; user?: AuthUser } {
@@ -37,21 +50,18 @@ class AuthService {
         u.password === credentials.password
     );
 
-    if (!user) {
-      return { success: false, error: 'Invalid email/username or password.' };
-    }
-
-    if (!user.isActive) {
-      return { success: false, error: 'Your account has been deactivated. Please contact an administrator.' };
-    }
+    if (!user) return { success: false, error: 'Invalid email/username or password.' };
+    if (!user.isActive) return { success: false, error: 'Your account has been deactivated. Please contact an administrator.' };
 
     const authUser = toAuthUser(user);
     storage.set(STORAGE_KEYS.AUTH_USER, authUser);
+    setCookie(authUser);
     return { success: true, user: authUser };
   }
 
   logout(): void {
     storage.remove(STORAGE_KEYS.AUTH_USER);
+    clearCookie();
   }
 
   hasPermission(category: string): boolean {

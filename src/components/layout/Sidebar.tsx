@@ -2,9 +2,9 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import {
-  FolderOpen,
   LayoutDashboard,
   Users,
   Upload,
@@ -76,18 +76,14 @@ export function Sidebar() {
     >
       <div className="flex items-center justify-between px-4 h-16 border-b border-slate-700/50">
         {!collapsed && (
-          <Link href="/admin" className="flex items-center gap-2.5 font-bold">
-            <div className="w-7 h-7 bg-blue-500 rounded-lg flex items-center justify-center shrink-0">
-              <FolderOpen className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-sm font-bold text-white">RepoSystem</span>
+          <Link href="/admin" className="flex items-center gap-2 min-w-0">
+            <Image src="/iuc-logo.png" alt="IUC Drive" width={72} height={25} className="h-7 w-auto object-contain brightness-0 invert" priority />
+            <span className="text-xs font-bold text-white whitespace-nowrap">IUC Drive</span>
           </Link>
         )}
         {collapsed && (
           <Link href="/admin" className="mx-auto">
-            <div className="w-7 h-7 bg-blue-500 rounded-lg flex items-center justify-center">
-              <FolderOpen className="w-4 h-4 text-white" />
-            </div>
+            <Image src="/iuc-logo.png" alt="IUC" width={28} height={28} className="h-7 w-auto object-contain brightness-0 invert" priority />
           </Link>
         )}
         {!collapsed && (

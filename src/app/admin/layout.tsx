@@ -6,7 +6,8 @@ import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FolderOpen, LayoutDashboard, Users, Upload, FileText, UserPlus, Files, Home, LogOut, Shield } from 'lucide-react';
+import Image from 'next/image';
+import { LayoutDashboard, Users, Upload, FileText, UserPlus, Files, Home, LogOut, Shield } from 'lucide-react';
 import { authService } from '@/lib/auth';
 import { useRouter } from 'next/navigation';
 import { getInitials } from '@/lib/utils';
@@ -39,11 +40,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex-1 flex flex-col min-w-0">
           <header className="lg:hidden bg-white border-b border-gray-200 sticky top-0 z-40">
             <div className="flex items-center justify-between px-4 h-14">
-              <Link href="/admin" className="flex items-center gap-2 font-bold text-blue-600">
-                <div className="w-7 h-7 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <FolderOpen className="w-4 h-4 text-white" />
-                </div>
-                <span className="text-sm font-bold text-gray-900">Admin Panel</span>
+              <Link href="/admin" className="flex items-center gap-2">
+                <Image src="/iuc-logo.png" alt="IUC Drive" width={72} height={25} className="h-7 w-auto object-contain" priority />
+                <span className="text-sm font-bold text-purple-700">IUC Drive</span>
               </Link>
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}

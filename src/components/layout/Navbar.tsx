@@ -2,15 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter, usePathname } from 'next/navigation';
 import {
-  FolderOpen,
   LayoutDashboard,
   Files,
   LogOut,
   Menu,
   X,
-  User,
   ChevronDown,
   Shield,
 } from 'lucide-react';
@@ -50,11 +49,9 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-8">
-            <Link href={isAdmin ? '/admin' : '/dashboard'} className="flex items-center gap-2.5 font-bold text-blue-600">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <FolderOpen className="w-4 h-4 text-white" />
-              </div>
-              <span className="hidden sm:block text-gray-900 font-bold">RepoSystem</span>
+            <Link href={isAdmin ? '/admin' : '/dashboard'} className="flex items-center gap-2.5">
+              <Image src="/iuc-logo.png" alt="IUC Drive" width={90} height={31} className="h-8 w-auto object-contain" priority />
+              <span className="hidden sm:block text-purple-700 font-bold text-sm">IUC Drive</span>
             </Link>
 
             <div className="hidden md:flex items-center gap-1">
