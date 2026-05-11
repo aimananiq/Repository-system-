@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(npx create-next-app@latest repo-management --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --no-turbopack)",
+      "Bash(npm install *)",
+      "Bash(npx tsc *)",
+      "Bash(npm run *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/login)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/admin)",
+      "Bash(curl -s -o /dev/null -w ' *)",
+      "Bash(pkill -f \"next dev\")",
+      "Bash(npx --yes localtunnel --version)",
+      "Bash(echo \"Next.js PID: $!\" sleep 6 cat /tmp/next-dev.log)",
+      "Bash(npx localtunnel *)",
+      "Bash(echo \"LT PID: $!\")",
+      "Read(//tmp/**)",
+      "Bash(jobs -l)",
+      "Bash(curl -s https://loca.lt/mytunnelpassword)",
+      "Bash(curl -s \"http://localhost:3000\" -o /dev/null -w \"%{http_code}\")",
+      "Bash(pkill -f localtunnel)",
+      "Bash(node -e ' *)",
+      "Bash(cat)",
+      "Bash(chmod +x /tmp/run-lt.sh)",
+      "Bash(/tmp/run-lt.sh)",
+      "Bash(gh repo *)",
+      "Bash(git push *)",
+      "Bash(echo \"Exit: $?\")",
+      "Bash(git config *)",
+      "Bash(security find-internet-password *)",
+      "Bash(pkill -f \"git push\")",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
+    ]
+  }
+}
